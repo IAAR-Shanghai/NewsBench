@@ -10,7 +10,7 @@
         <ul class="navbar-nav">
           <li class="nav-item active">
             <!-- <a class="nav-link active" href="/" style="text-align: left;">Home</a> -->
-            <router-link class="nav-link active" to="/">Leaderboard</router-link>
+            <router-link class="nav-link active" to="/">Home</router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="https://www.iaar.ac.cn/">Paper</a>
