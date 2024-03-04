@@ -18,7 +18,7 @@
             <a class="nav-link active" href="https://www.iaar.ac.cn/">Code</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/leaderboard">Leaderboard</a>
+            <a class="nav-link active" href="/#/leaderboard">Leaderboard</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link active">FAQ</a>
