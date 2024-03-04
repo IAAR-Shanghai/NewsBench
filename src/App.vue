@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <router-link class="navbar-brand" to="/">
-        <img src="./assets/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: fixed; top: 0; left: 0; right: 0;">
+      <router-link class="navbar-brand title" to="/">
         News Benchmark
       </router-link>
 
@@ -32,6 +31,8 @@
       </div>
     </nav>
 
+    <br/>
+
     <router-view></router-view>
   </div>
 </template>
@@ -47,5 +48,8 @@ export default {
 <style>
 .spacer {
     margin-bottom: 50px; /* 调整所需的间距 */
+}
+.title {
+  margin-left: 50px;
 }
 </style>
