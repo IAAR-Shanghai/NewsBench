@@ -6,7 +6,7 @@
     <br/>
 
     <h3 class="text-center">
-      <img src="../assets/paper.png" width="60" height="60" class="d-inline-block align-center" alt="">
+      <img :src="paper" width="60" height="60" class="d-inline-block align-center" alt="">
       NewsBench Leaderboard
     </h3>
 
@@ -157,7 +157,12 @@
 
 <script>
 export default {
-  name: 'MyLeaderboard'
+  name: 'MyLeaderboard',
+  data(){
+    return {
+      paper: require('../assets/paper.png')
+    }
+  }
 }
 </script>
 

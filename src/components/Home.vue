@@ -6,7 +6,7 @@
   
     <h1 class="text-center">
       <a class="navbar-brand" href="#">
-      <img src="../assets/paper.png" width="70" height="70" class="d-inline-block align-center" alt="">
+      <img :src="paper" width="70" height="70" class="d-inline-block align-center" alt="">
       News Benchmark
     </a>
     </h1>
@@ -20,7 +20,7 @@
     <br/>
 
     <div>
-      <img src="../assets/newsbench_architecture1.png" style="width: 350px; height: 350px;" class="rounded mx-auto d-block" alt="...">
+      <img :src="newsbench_architecture" style="width: 350px; height: 350px;" class="rounded mx-auto d-block" alt="...">
       <figcaption class="figure-caption" style="margin: 0 auto; width: 45%;">Figure 1: The key components and processes of the NewsBench benchmark. The numbers inside the brackets indicate the task counts for the subsets. The bold border boxes are the output scores</figcaption>
     </div>
 
@@ -68,7 +68,13 @@
 
 <script>
 export default {
-  name: 'MyHome'
+  name: 'MyHome',
+  data(){
+    return {
+      paper: require('../assets/paper.png'),
+      newsbench_architecture: require('../assets/newsbench_architecture1.png')
+    }
+  }
 }
 </script>
 
