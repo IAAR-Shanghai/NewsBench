@@ -16,25 +16,25 @@
 
     <div class="p-container">
       <p class="author text-center">
-        <a href="#" style="white-space: nowrap">Miao Li</a><sup>1</sup> and 
-        <a href="#" style="white-space: nowrap">Ming-Bin Chen</a><sup>1</sup> and 
-        <a href="#" style="white-space: nowrap">Bo Tang</a><sup>2</sup> and 
-        <a href="#" style="white-space: nowrap">Shengbin Hou</a><sup>3</sup> and 
-        <a href="#" style="white-space: nowrap">Pengyu Wang</a><sup>3</sup> and 
-        <a href="#" style="white-space: nowrap">Haiying Deng</a><sup>4</sup> and 
-        <a href="#" style="white-space: nowrap">Zhiyu Li</a><sup>2</sup> and 
-        <a href="#" style="white-space: nowrap">Feiyu Xiong</a><sup>2</sup> and 
-        <a href="#" style="white-space: nowrap">Keming Mao</a><sup>3</sup> and 
-        <a href="#" style="white-space: nowrap">Peng Cheng</a><sup>4</sup> and 
-        <a href="#" style="white-space: nowrap">Yi Luo</a><sup>4</sup>
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Miao Li</a><sup>1</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Ming-Bin Chen</a><sup>1</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Bo Tang</a><sup>2</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Shengbin Hou</a><sup>3</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Pengyu Wang</a><sup>3</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Haiying Deng</a><sup>4</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Zhiyu Li</a><sup>2</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Feiyu Xiong</a><sup>2</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Keming Mao</a><sup>3</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Peng Cheng</a><sup>4</sup> and 
+        <a href="#" style="white-space: nowrap;text-decoration: none;">Yi Luo</a><sup>4</sup>
       </p>
     </div>
 
     <div class="p-container">
       <p class="author text-center">
-        <a style="white-space: nowrap;font-size: medium;"><sup>1</sup>The University of Melbourne, Australia</a>&nbsp;&nbsp;&nbsp;
-        <a style="white-space: nowrap;font-size: medium;"><sup>2</sup>Institute for Advanced Algorithms Research, Shanghai, China</a>&nbsp;&nbsp;&nbsp;
-        <a style="white-space: nowrap;font-size: medium;"><sup>3</sup>Northeastern University, China</a>&nbsp;&nbsp;&nbsp;
+        <a style="white-space: nowrap;font-size: medium;"><sup>1</sup>The University of Melbourne, Australia</a><br/>
+        <a style="white-space: nowrap;font-size: medium;"><sup>2</sup>Institute for Advanced Algorithms Research, Shanghai, China</a><br/>
+        <a style="white-space: nowrap;font-size: medium;"><sup>3</sup>Northeastern University, China</a><br/>
         <a style="white-space: nowrap;font-size: medium;"><sup>4</sup>State Key Laboratory of Media Convergence Production Technology and Systems, China</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </p>
 
@@ -61,7 +61,8 @@
     <br/>
 
 
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color:aliceblue;">
+    <!-- <div class="jumbotron jumbotron-fluid text-center" style="background-color:aliceblue;"> -->
+    <div class="jumbotron jumbotron-fluid text-center">
       <div class="p-container">
         <h5 class="display-4">Overview</h5>
       </div>
@@ -85,7 +86,7 @@
     <br/>
 
 
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color:aliceblue;">
+    <div class="jumbotron jumbotron-fluid text-center">
       <div class="p-container">
         <h5 class="display-4">Framework</h5>
       </div>
@@ -108,7 +109,7 @@
     <br/>
     <br/>
 
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color:aliceblue;">
+    <div class="jumbotron jumbotron-fluid text-center">
       <div class="p-container">
         <h5 class="display-4">Evalutation Protocol</h5>
       </div>
@@ -163,7 +164,7 @@
     <br/>
     <br/>
 
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color:aliceblue;">
+    <div class="jumbotron jumbotron-fluid text-center">
       <div class="p-container">
         <h5 class="display-4">Main Results</h5>
       </div>
@@ -173,132 +174,7 @@
 
     <div class="p-container">
       <p class="paragraph">We evaluated 11 LLMs capable of generating Chinese text, including GPT-4-1106, GPT-3.5-turbo, ERNIE Bot, Baichuan2-13B, Baichuan2-53B, ChatGLM2-6B, ChatGLM3-6B, Aquila-34B, InternLM-20B, Qwen-14B, Xinyu2-70B, and Xverse. These models cover corpora ranging from 2.6 trillion to 3.2 trillion tokens. Our evaluation spanned 1,267 benchmark samples.</p>
-      <!-- <img :src="score" style="width: 80%; height: 80%;" class="rounded mx-auto d-block" alt="..."> -->
-      <div class="table-container">
-      <table class="table table-hover">
-        <thead style="border: 1px;">
-          <tr>
-            <th scope="col" style="font-size: xx-small;">Model</th>
-            <!-- <th scope="col" style="font-size: xx-small;">#Parameters</th>
-            <th scope="col" style="font-size: xx-small;">Open Weights</th> -->
-            <th scope="col" style="font-size: xx-small;">JWP-Generation</th>
-            <th scope="col" style="font-size: xx-small;">JWP-Multiple</th>
-            <th scope="col" style="font-size: xx-small;">SA-Generation</th>
-            <th scope="col" style="font-size: xx-small;">SA-Multiple</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>GPT-4-1106</td>
-            <!-- <td>-</td>
-            <td>×</td> -->
-            <td>2.4438</td>
-            <td>0.4560</td>
-            <td>0.9000</td>
-            <td>0.9068</td>
-          </tr>
-          <tr>
-            <td>GPT-3.5-turbo</td>
-            <!-- <td>-</td>
-            <td>×</td> -->
-            <td>2.3758</td>
-            <td>0.3070</td>
-            <td>0.7892</td>
-            <td>0.6281</td>
-          </tr>
-          <tr>
-            <td>ERNIE Bot</td>
-            <!-- <td>-</td>
-            <td>×</td> -->
-            <td>2.4112</td>
-            <td>0.5264</td>
-            <td>0.8456</td>
-            <td>0.8867</td>
-          </tr>
-          <tr>
-            <td>Baichuan2-13B</td>
-            <!-- <td>13B</td>
-            <td>√</td> -->
-            <td>2.3392</td>
-            <td>0.3452</td>
-            <td>0.7211</td>
-            <td>0.5842</td>
-          </tr>
-          <tr>
-            <td>Baichuan2-53B</td>
-            <!-- <td>53B</td>
-            <td>√</td> -->
-            <td>2.4088</td>
-            <td>0.3456</td>
-            <td>0.7883</td>
-            <td>0.6628</td>
-          </tr>
-          <tr>
-            <td>ChatGLM2-6B</td>
-            <!-- <td>6B</td>
-            <td>√</td> -->
-            <td>2.2658</td>
-            <td>0.3103</td>
-            <td>0.7534</td>
-            <td>0.5228</td>
-          </tr>
-          <tr>
-            <td>ChatGLM3-6B</td>
-            <!-- <td>6B</td>
-            <td>√</td> -->
-            <td>2.3082</td>
-            <td>0.3303</td>
-            <td>0.7599</td>
-            <td>0.4883</td>
-          </tr>
-          <tr>
-            <td>Aquila-34B</td>
-            <!-- <td>34B</td>
-            <td>√</td> -->
-            <td>2.1808</td>
-            <td>0.2401</td>
-            <td>0.7885</td>
-            <td>0.2687</td>
-          </tr>
-          <tr>
-            <td>InternLM-20B</td>
-            <!-- <td>20B</td>
-            <td>√</td> -->
-            <td>2.2208</td>
-            <td>0.4008</td>
-            <td>0.7669</td>
-            <td>0.5813</td>
-          </tr>
-          <tr>
-            <td>Qwen-14B</td>
-            <!-- <td>14B</td>
-            <td>√</td> -->
-            <td>2.3796</td>
-            <td>0.4408</td>
-            <td>0.7053</td>
-            <td>0.7324</td>
-          </tr>
-          <tr>
-            <td>Xinyu2-70B</td>
-            <!-- <td>70B</td>
-            <td>×</td> -->
-            <td>2.2916</td>
-            <td>0.3958</td>
-            <td>0.7393</td>
-            <td>0.5972</td>
-          </tr>
-          <tr>
-            <td>Xverse</td>
-            <!-- <td>13B</td>
-            <td>√</td> -->
-            <td>2.3968</td>
-            <td>0.3861</td>
-            <td>0.7702</td>
-            <td>0.5948</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <img :src="score" style="width: 80%; height: 80%;" class="rounded mx-auto d-block" alt="...">
       <figcaption class="figure-caption" >Table 2: Evaluated large language models capable of generating Chinese.</figcaption>
       <p class="paragraph">In Table 2,in tasks related to journalistic writing proficiency, GPT-4-1106 emerged as the top performer, while ERNIE Bot showcased notable performance in safety evaluation and multiple-choice questions. Further analysis revealed that model size is not the sole determinant of performance; model architecture and training methodologies are equally crucial. ERNIE Bot demonstrated outstanding performance in addressing bias and discrimination, particularly excelling in summarization tasks. These findings shed light on the nuanced strengths of different models in the realm of journalistic writing proficiency.</p>
     </div>
@@ -306,7 +182,7 @@
     <br/>
     <br/>
 
-    <div class="jumbotron jumbotron-fluid text-center" style="background-color:aliceblue;">
+    <div class="jumbotron jumbotron-fluid text-center">
       <div class="p-container">
         <h5 class="display-4">Limitations</h5>
       </div>
