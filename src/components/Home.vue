@@ -2,14 +2,15 @@
 <template>
 
   <div>
-    <br/>
   
     <div class="title-container">
-      <p class="text-center title" style="font-size: larger;">
+      <h4 class="text-center title" >
         <img :src="paper" width="70" height="70" class="d-inline-block align-center" alt="">
         News Benchmark: Systematic Evaluation of LLMs for Writing Proficiency and Safety Adherence in Chinese Journalistic Editorial Applications
-      </p>
+      </h4>
     </div>
+
+    <br/>
 
     <div class="container">
       <p class="author text-center">
@@ -29,13 +30,13 @@
 
     <div class="container">
       <p class="author text-center">
-        <a style="white-space: nowrap;font-size: small;"><sup>1</sup>The University of Melbourne, Australia</a>&nbsp;&nbsp;&nbsp;
-        <a style="white-space: nowrap;font-size: small;"><sup>2</sup>IAAR, China</a>&nbsp;&nbsp;&nbsp;
-        <a style="white-space: nowrap;font-size: small;"><sup>3</sup>Northeastern University, China</a>&nbsp;&nbsp;&nbsp;
-        <a style="white-space: nowrap;font-size: small;"><sup>4</sup>State Key Laboratory of Media Convergence Production Technology and Systems, China</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a style="white-space: nowrap;font-size: medium;"><sup>1</sup>The University of Melbourne, Australia</a>&nbsp;&nbsp;&nbsp;
+        <a style="white-space: nowrap;font-size: medium;"><sup>2</sup>IAAR, China</a>&nbsp;&nbsp;&nbsp;
+        <a style="white-space: nowrap;font-size: medium;"><sup>3</sup>Northeastern University, China</a>&nbsp;&nbsp;&nbsp;
+        <a style="white-space: nowrap;font-size: medium;"><sup>4</sup>State Key Laboratory of Media Convergence Production Technology and Systems, China</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </p>
 
-      <p class="author text-center" style="font-size: small; color: grey;">
+      <p class="author text-center" style="font-size: medium; color: grey;">
         miao4@student.unimelb.edu.au, tangb@iaar.ac.cn
       </p>
     </div>
@@ -153,12 +154,12 @@
     <div class="p-container" style="display: flex;">
       <div style="width: 50%;">
         <h4 style="text-align: left;">Limitations</h4>
-        <p style="font-size: small;">There are several limitations to this study. Firstly, our dataset is exclusively in Chinese, limiting the applicability of the evaluation framework to other languages. Secondly, while our benchmark dataset is substantial, plans for expansion are in place to enhance comprehensiveness. The uneven distribution of samples across contexts is noted as well. Thirdly, the framework relies solely on the implicit knowledge embedded within LLMs for evaluation, which may result in inaccuracies when external evidence is required.</p>
+        <p style="font-size: medium;">There are several limitations to this study. Firstly, our dataset is exclusively in Chinese, limiting the applicability of the evaluation framework to other languages. Secondly, while our benchmark dataset is substantial, plans for expansion are in place to enhance comprehensiveness. The uneven distribution of samples across contexts is noted as well. Thirdly, the framework relies solely on the implicit knowledge embedded within LLMs for evaluation, which may result in inaccuracies when external evidence is required.</p>
       </div>
       <div style="width: 10%;"><p> </p></div>
       <div style="width: 50%;">
         <h4 style="text-align: left;">Constraints</h4>
-        <p style="font-size: small;">The dataset is limited to Chinese, potentially limiting its applicability to other languages. Uneven sample distribution and sole reliance on LLMs' embedded knowledge, lacking external evidence, may lead to inaccuracies. The exclusion of certain essential editorial applications reflects a limitation in comprehensively assessing journalistic integrity within the framework.
+        <p style="font-size: medium;">The dataset is limited to Chinese, potentially limiting its applicability to other languages. Uneven sample distribution and sole reliance on LLMs' embedded knowledge, lacking external evidence, may lead to inaccuracies. The exclusion of certain essential editorial applications reflects a limitation in comprehensively assessing journalistic integrity within the framework.
           Besides,please note that this content contains examples of impolite or sensitive language related to news safety issues. Sensitive individuals may wish to disregard.</p>
       </div>
     </div>
@@ -167,7 +168,7 @@
 
     <div class="p-container">
       <h3 style="text-align: left;">BibTeX</h3>
-      <pre style="background-color: lightgrey;"><code style="font-size: x-small;">
+      <pre style="background-color: lightgrey;"><code style="font-size: small;">
   @misc{li2024newsbench,
         title={NewsBench: Systematic Evaluation of LLMs for Writing Proficiency and Safety Adherence in Chinese Journalistic Editorial Applications}, 
         author={Miao Li and Ming-Bin Chen and Bo Tang and Shengbin Hou and Pengyu Wang and Haiying Deng and Zhiyu Li and Feiyu Xiong and Keming Mao and Peng Cheng and Yi Luo},
@@ -207,7 +208,7 @@ export default {
   .paragraph {
     text-align: justify;
     margin-top: 30px; /* 与h3保持一段距离 */
-    font-size: small;
+    font-size: medium;
   }
 
   footer {
@@ -234,7 +235,7 @@ export default {
   }
   .figure-caption {
     text-align: center; width: 90%;
-    font-size: smaller;
+    font-size: small;
   }
 
 </style>
