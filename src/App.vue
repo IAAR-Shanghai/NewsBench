@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: fixed; top: 0; left: 0; right: 0;">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: fixed; top: 0; left: 0; right: 0;">
       <router-link class="navbar-brand title" to="/">
         News Benchmark
       </router-link>
@@ -8,7 +8,6 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav" style="text-align: right; margin-right: 20px;">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <!-- <a class="nav-link active" href="/" style="text-align: left;">Home</a> -->
             <router-link class="nav-link active" to="/">Home</router-link>
           </li>
           <li class="nav-item">
@@ -19,17 +18,10 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link active" to="/leaderboard">Leaderboard</router-link>
-            <!-- <a class="nav-link active" href="/#/leaderboard">Leaderboard</a> -->
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link active">FAQ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active">About</a>
-          </li> -->
         </ul>
       </div>
-    </nav>
+    </nav> -->
 
     <br/>
 
