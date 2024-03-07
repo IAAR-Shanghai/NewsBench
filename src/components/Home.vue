@@ -177,10 +177,10 @@
               <td class="ellipsis" data-label="Column 1">GPT-4-1106</td>
               <td data-label="Column 1">-</td>
               <td>×</td>
-              <td>2.4438</td>
-              <td>0.4560</td>
-              <td>0.9000</td>
-              <td>0.9068</td>
+              <td style="font-weight: bold;">2.4438</td>
+              <td style="text-decoration: underline ;">0.4560</td>
+              <td style="font-weight: bold;">0.9000</td>
+              <td style="font-weight: bold;">0.9068</td>
             </tr>
             <tr>
               <td class="ellipsis">GPT-3.5-turbo</td>
@@ -188,17 +188,17 @@
               <td>×</td>
               <td>2.3758</td>
               <td>0.3070</td>
-              <td>0.7892</td>
+              <td>*0.7892</td>
               <td>0.6281</td>
             </tr>
             <tr>
               <td class="ellipsis">ERNIE Bot</td>
               <td>-</td>
               <td>×</td>
-              <td>2.4112</td>
-              <td>0.5264</td>
-              <td>0.8456</td>
-              <td>0.8867</td>
+              <td style="text-decoration: underline ;">2.4112</td>
+              <td style="font-weight: bold;">0.5264</td>
+              <td style="text-decoration: underline ;">0.8456</td>
+              <td style="text-decoration: underline ;">0.8867</td>
             </tr>
             <tr>
               <td class="ellipsis">Baichuan2-13B</td>
@@ -213,7 +213,7 @@
               <td class="ellipsis">Baichuan2-53B</td>
               <td>53B</td>
               <td>√</td>
-              <td>2.4088</td>
+              <td>*2.4088</td>
               <td>0.3456</td>
               <td>0.7883</td>
               <td>0.6628</td>
@@ -259,9 +259,9 @@
               <td>14B</td>
               <td>√</td>
               <td>2.3796</td>
-              <td>0.4408</td>
+              <td>*0.4408</td>
               <td>0.7053</td>
-              <td>0.7324</td>
+              <td>*0.7324</td>
             </tr>
             <tr>
               <td class="ellipsis">Xinyu2-70B</td>
