@@ -1,0 +1,7 @@
+erniebot==0.5.0
+numpy==1.26.4
+Requests==2.31.0
+torch==2.1.2
+tqdm==4.66.1
+transformers==4.36.2
+vllm==0.2.7
