@@ -45,7 +45,7 @@
 
 
     <div class="p-container text-center">
-      <button type="button" class="btn btn-dark"><a href="#" style="color: white;text-decoration: none;">Code</a></button>&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-dark"><a href="https://github.com/IAAR-Shanghai/NewsBench" style="color: white;text-decoration: none;">Code</a></button>&nbsp;&nbsp;&nbsp;
       <button type="button" class="btn btn-dark"><a href="https://arxiv.org/abs/2403.00862" style="color: white;text-decoration: none;">Paper</a></button>
     </div>
 
