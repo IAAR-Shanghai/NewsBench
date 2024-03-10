@@ -158,7 +158,7 @@
     <br/>
 
     <div class="p-container">
-      <p class="paragraph">We evaluated 11 LLMs capable of generating Chinese text, including GPT-4-1106, GPT-3.5-turbo, ERNIE Bot, Baichuan2-13B, Baichuan2-53B, ChatGLM2-6B, ChatGLM3-6B, Aquila-34B, InternLM-20B, Qwen-14B, Xinyu2-70B, and Xverse. These models cover corpora ranging from 2.6 trillion to 3.2 trillion tokens. Our evaluation spanned 1,267 benchmark samples.</p>
+      <p class="paragraph">We evaluated 10 LLMs capable of generating Chinese text, including GPT-4-1106, GPT-3.5-turbo, ERNIE Bot, Baichuan2-13B, Baichuan2-53B, ChatGLM2-6B, ChatGLM3-6B, Aquila-34B, InternLM-20B, Qwen-14B and Xverse. These models cover corpora ranging from 2.6 trillion to 3.2 trillion tokens. Our evaluation spanned 1,267 benchmark samples.</p>
       <div class="table-container2">
         <table class="table table-hover">
           <thead>
@@ -262,15 +262,6 @@
               <td>*0.4408</td>
               <td>0.7053</td>
               <td>*0.7324</td>
-            </tr>
-            <tr>
-              <td class="ellipsis">Xinyu2-70B</td>
-              <td>70B</td>
-              <td>×</td>
-              <td>2.2916</td>
-              <td>0.3958</td>
-              <td>0.7393</td>
-              <td>0.5972</td>
             </tr>
             <tr>
               <td class="ellipsis">Xverse</td>
