@@ -1,7 +1,7 @@
 
 
 <h1 align="center">
-    NewsBench: Systematic Evaluation of LLMs for Writing Proficiency and Safety Adherence in Chinese Journalistic Editorial Applications
+    NewsBench: A Systematic Evaluation Framework for Assessing Editorial Capabilities of Large Language Models in Chinese Journalism
 </h1>
 <p align="center">
 <a href="./eval_scripts/"><b>NewsBenchEval</b></a>, a framework designed to evaluate NewsBench.<br>
@@ -19,9 +19,10 @@
     </a>
 </p>
 
+
 ## Introduction
 
-This study presents NewsBench, a novel benchmark framework developed to evaluate the capability of Large Language Models (LLMs) in Chinese Journalistic Writing Proficiency (JWP) and their Safety Adherence (SA), addressing the gap between journalistic ethics and the risks associated with AI utilization. Comprising 1,267 tasks across 5 editorial applications, 7 aspects (including safety and journalistic writing with 4 detailed facets), and spanning 24 news topics domains, NewsBench employs two GPT-4 based automatic evaluation protocols validated by human assessment. Our comprehensive analysis of 11 LLMs highlighted GPT-4 and ERNIE Bot as top performers, yet revealed a relative deficiency in journalistic ethic adherence during creative writing tasks. These findings underscore the need for enhanced ethical guidance in AI-generated journalistic content, marking a step forward in aligning AI capabilities with journalistic standards and safety considerations.
+We present NewsBench, a novel evaluation framework to systematically assess the capabilities of Large Language Models (LLMs) for editorial capabilities in Chinese journalism.Our constructed benchmark dataset is focused on four facets of writing proficiency and six facets of safety adherence, and it comprises manually and carefully designed 1,267 test samples in the types of multiple choice questions and short answer questions for five editorial tasks in 24 news domains. 
 
 <img src="./assets/component.png" style="display: block;margin: auto;clear: both;"/> 
 
