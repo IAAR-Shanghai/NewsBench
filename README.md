@@ -123,6 +123,8 @@ We present NewsBench, a novel evaluation framework to systematically assess the 
 
 ### 1. Clone the project repository
 
+Note that the `output` folder contains our experimental raw data. After cloning this project, rename the `output` folder to something else to prevent confusion during use.
+
 ````bash
 git clone https://github.com/IAAR-Shanghai/NewsBench.git
 ````
@@ -158,9 +160,18 @@ run the following command for model inference：
 
 ````
 python model_infer.py --model_path <model_path> --model_name <model_name>  --model_type <model_type> --vllm --tensor_parallel_size 4
+# <model_path> is the path to the local model
+# <model_name> is the name of the local model
+# <model_type> refers to the type of the local model used to construct the prompt for model inference. This can be left unspecified to use the default prompt. Specifiable types include: `baichuan2`, `internlm`, `qwen`, `xverse`.
 ````
 
 The inference results file is in ./output/{model_name}/{model_name}_output.json_
+
+**exmaple** 
+
+```
+python model_infer.py --model_path /models/huggingface/Baichuan2-13B --model_name Baichuan2-13B  --model_type baichuan2 --vllm --tensor_parallel_size 4
+```
 
 #### b. non-open-source models: perform model inference using the official API
 
@@ -189,23 +200,39 @@ Configure the Key of the preceding model in config/eval_config.json(No need to a
 }
 ```
 
-##### 3. run command：
+##### 3. run command
 
 ````
-python BaseCallApi.py --model_name <model_name> --workers <worker nums>
+python BaseCallApi.py --model_name <model_name> --workers <num of workers>
+# <model_name> is the name of the model used for API-based inference. Currently supported models include: `Gpt4`, `ernie`, and `baichuan2-53b`.
+# <num of workers> is the number of threads for concurrent API calls, with a default value of 1
 ````
 
-### 5. Call GPT4 to score and calculate the result：
+**exmaple**
+
+```
+python BaseCallApi.py --model_name baichuan2-53b --workers 5
+```
+
+### 5. Call GPT4 to score and calculate the result
 
 run the following command to call gpt4 to score and calculate the result
 
 ````
 python calculateScore.py --model_name_or_result_path <model_name or result_path> --gpt_eval
+# <model_name or result_path> is either the name of the model for score calculation or the file path of the inference result. The model name should match the one used in the inference step.
+# --gpt_eval Whether to use GPT-4 for scoring subjective questions.
 ````
 
 The results file is in ./output/{model_name}/{model_name}_score.json
 
-### 6. Description of script parameters：
+**example**
+
+```
+python calculateScore.py --model_name_or_result_path Baichuan2-13B
+```
+
+### 6. Description of script parameters
 
 <table>
     <tr>
@@ -256,7 +283,7 @@ The results file is in ./output/{model_name}/{model_name}_score.json
         <td rowspan="2">BaseCallApi.py</td>
         <td>model_name</td>
         <td>true</td>
-        <td>the name of the model to be called by the API</td>
+        <td>The name of the model to be called by the API,Currently supported models include: Gpt4, ernie, and baichuan2-53b</td>
     </tr>
     <tr>
         <td>worker</td>
@@ -264,6 +291,7 @@ The results file is in ./output/{model_name}/{model_name}_score.json
         <td>The number of concurrent calls when invoking the API</td>
     </tr>
 </table>
+
 
 
 
