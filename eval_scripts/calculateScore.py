@@ -8,7 +8,8 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from tqdm import tqdm
-
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from eval_scripts.BaseNews import BaseNews
 
 XINHUA_OBJECT = "xinhua_object"
