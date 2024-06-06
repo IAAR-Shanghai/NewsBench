@@ -121,35 +121,56 @@ We present NewsBench, a novel evaluation framework to systematically assess the 
 
 ## Quick Start
 
-### Environment
+### 1. Clone the project repository
 
-1. Ensure you have Python 3.9.0+
+````bash
+git clone https://github.com/IAAR-Shanghai/NewsBench.git
+````
 
-2. install requirements `pip install -r requirements.txt`
+### 2. Set up the environment
 
-### The directory of script runs：
+- Ensure you have Python 3.9.0+
 
-./eval_scripts
+```
+conda create -n newsbench python=3.9 -y 
+conda activate newsbench
+```
 
-### Model inference  –- Native：
+- install requirements 
 
-run the following command for model inference：`python model_infer.py --model_path <model_path> --model_name <model_name>  --model_type <model_type> --vllm --tensor_parallel_size 4` 
+```
+pip install -r requirements.txt
+```
+
+### 3. Enter the evaluation scripts directory
+
+```
+cd ./eval_scripts
+```
+
+### 4. Model inference 
+
+**We provide two methods for model inference: for open-source models, download the models locally for inference; for non-open-source models, use the official API for inference.**
+
+#### a. open-source models: local model inference
+
+run the following command for model inference：
+
+````
+python model_infer.py --model_path <model_path> --model_name <model_name>  --model_type <model_type> --vllm --tensor_parallel_size 4
+````
 
 The inference results file is in ./output/{model_name}/{model_name}_output.json_
 
-### Model inference  –- Call APIs：
+#### b. non-open-source models: perform model inference using the official API
 
-#### run command：
-
-`python BaseCallApi.py --model_name <model_name> --workers <worker nums>`
-
-#### supported models：
+##### 1. Supported models
 
 Baichuan53B、Gpt4、Enrie
 
-#### token config：
+##### 2. Configure the API key
 
-Configure the token of the preceding model in config/eval_config.json:
+Configure the Key of the preceding model in config/eval_config.json(No need to add "Bearer ")
 
 ```json
 {
@@ -168,13 +189,23 @@ Configure the token of the preceding model in config/eval_config.json:
 }
 ```
 
-### Call GPT4 to score and calculate the result：
+##### 3. run command：
 
-run the following command to call gpt4 to score and calculate the result:：`python calculateScore.py --model_name_or_result_path <model_name or result_path> --gpt_eval` 
+````
+python BaseCallApi.py --model_name <model_name> --workers <worker nums>
+````
+
+### 5. Call GPT4 to score and calculate the result：
+
+run the following command to call gpt4 to score and calculate the result
+
+````
+python calculateScore.py --model_name_or_result_path <model_name or result_path> --gpt_eval
+````
 
 The results file is in ./output/{model_name}/{model_name}_score.json
 
-### Description of script parameters：
+### 6. Description of script parameters：
 
 <table>
     <tr>
@@ -197,7 +228,8 @@ The results file is in ./output/{model_name}/{model_name}_score.json
     <tr>
         <td>model_type</td>
         <td>false</td>
-        <td>model type, used to build the prompt for inference, leave blank to use the default prompt.</td>
+        <td>model type, used to build the prompt for inference, leave blank to use the default prompt.
+            include[baichuan2,internlm,qwen,xverse]</td>
     </tr>
     <tr>
         <td>vllm</td>
@@ -232,6 +264,7 @@ The results file is in ./output/{model_name}/{model_name}_score.json
         <td>The number of concurrent calls when invoking the API</td>
     </tr>
 </table>
+
 
 
 
