@@ -141,6 +141,7 @@ conda activate newsbench
 - install requirements 
 
 ```
+cd NewsBench
 pip install -r requirements.txt
 ```
 
