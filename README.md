@@ -3,32 +3,34 @@
 <h1 align="center">
     NewsBench: A Systematic Evaluation Framework for Assessing Editorial Capabilities of Large Language Models in Chinese Journalism
 </h1>
-<p align="center">
+<!-- <p align="center">
 <a href="./eval_scripts/"><b>NewsBenchEval</b></a>, a framework designed to evaluate NewsBench.<br>
 <a href="./dataset/news_sorted.json"><b>NewsBench</b></a>, a dataset of NewsBench instances.<br>
-</p>
+</p> -->
 <p align="center">
     <a href="https://opensource.org/license/apache-2-0/">
         <img alt="License: Apache" src="https://img.shields.io/badge/License-Apache2.0-yellow.svg">
     </a>
+    &nbsp&nbsp
     <a href="https://arxiv.org/abs/2403.00862">
-        <img alt="arXiv Paper" src="https://img.shields.io/badge/Paper-arXiv-red.svg">
+        <img alt="arXiv Paper" src="https://img.shields.io/badge/Paper-arXiv-red">
     </a>
+    &nbsp&nbsp
     <a href="./dataset/news_sorted.json">
-        <img alt="Static Badge" src="https://img.shields.io/badge/DataSet-XinhuaSafe-blue">
+        <img alt="Static Badge" src="https://img.shields.io/badge/Data-NewsBench-blue">
     </a>
 </p>
 
 
-## Introduction
-
-We present NewsBench, a novel evaluation framework to systematically assess the capabilities of Large Language Models (LLMs) for editorial capabilities in Chinese journalism.Our constructed benchmark dataset is focused on four facets of writing proficiency and six facets of safety adherence, and it comprises manually and carefully designed 1,267 test samples in the types of multiple choice questions and short answer questions for five editorial tasks in 24 news domains. 
+We present NewsBench, a novel evaluation framework to systematically assess the capabilities of Large Language Models (LLMs) for editorial capabilities in Chinese journalism. You can use our framework to evaluate the performance of any LLMs in terms of journalistic writing proficiency and safety adherence. For more details, please read our paper. We evaluated current LLMs which can handle Chinese, and we maintain a leaderboard at [www.iaar-shanghai.github.io/NewsBench/](https://iaar-shanghai.github.io/NewsBench/#/).
 
 <img src="./assets/component.png" style="display: block;margin: auto;clear: both;"/> 
 
 
 
-## Example of NewsBench
+## Example test samples in the benchmark dataset
+
+Our constructed benchmark dataset is focused on four facets of writing proficiency and six facets of safety adherence, and it comprises manually and carefully designed 1,267 test samples in the types of multiple choice questions and short answer questions for five editorial tasks in 24 news domains. 
 
 <details><summary>Click me to show the example</summary>
 
@@ -100,30 +102,11 @@ We present NewsBench, a novel evaluation framework to systematically assess the 
 
 </details>
 
-## Project Structure
-
-```
-|----assets							#Static files like images used in documentation							
-|----config
-|    |----eval_config.json					#Project configuration file
-|----dataset								
-|    |----news_sorted.json					#a dataset of NewsBench instances
-|----eval_scripts						#the framework for evaluating
-|    |----aquila_predict.py					
-|    |----BaseCallApi.py					#script of model inference  –- Call APIs	
-|    |----BaseNews.py			
-|    |----calculateScore.py					#script of calculate score
-|    |----model_infer.py					#script of model inference  –- Native
-|----output							#result files
-|----README.md								
-|----requirements.txt
-```
-
-## Quick Start
+## To evaluate your models with our evaluation framework, please follow the steps below.
 
 ### 1. Clone the project repository
 
-Note that the `output` folder contains our experimental raw data. After cloning this project, rename the `output` folder to something else to prevent confusion during use.
+Note that the `output` folder contains our experimental raw data for experimental models in our paper. After cloning this project, rename the `output` folder to something else to distinguish it from your output.
 
 ````bash
 git clone https://github.com/IAAR-Shanghai/NewsBench.git
@@ -284,7 +267,7 @@ python calculateScore.py --model_name_or_result_path Baichuan2-13B
         <td rowspan="2">BaseCallApi.py</td>
         <td>model_name</td>
         <td>true</td>
-        <td>The name of the model to be called by the API,Currently supported models include: Gpt4, ernie, and baichuan2-53b</td>
+        <td>The name of the model to be called by the API, Currently supported models include: Gpt4, ernie, and baichuan2-53b</td>
     </tr>
     <tr>
         <td>worker</td>
@@ -293,19 +276,28 @@ python calculateScore.py --model_name_or_result_path Baichuan2-13B
     </tr>
 </table>
 
+## Project Structure
 
+```
+|----assets							# Static files like images used in documentation							
+|----config
+|    |----eval_config.json					# Project configuration file including various prompts
+|----dataset								
+|    |----news_sorted.json					# The benchmark dataset in JSON
+|----eval_scripts						# The framework for evaluation
+|    |----aquila_predict.py					
+|    |----BaseCallApi.py					# The script for model inference with calling APIs	
+|    |----BaseNews.py			
+|    |----calculateScore.py					# The script for calculating scores
+|    |----model_infer.py					# The script for model inference with local models
+|----output							# Result files
+|----README.md								
+|----requirements.txt
+```
 
+## Acknowledgement
 
-
-## Results for Experiment-20240209
-
-![image-20240304113355751](./assets/results.png)
-
-Raw experimental data is available in: <a href="./output/">./output/*</a>
-
-## Citation
-
-If you are going to use our dataset in your work, please cite our paper:
+If you use our evaluation framework or dataset in your publications, please cite our paper in the following format.
 
 ```
 @misc{li2024newsbench,
