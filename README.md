@@ -136,11 +136,11 @@ cd ./eval_scripts
 
 ### 4. Model inference 
 
-**We provide two methods for model inference: for open-source models, download the models locally for inference; for non-open-source models, use the official API for inference.**
+We provide two methods for model inference: (1) for open-source models, download the models locally for inference running; (2) for non-open-source models, use the official APIs for inference running.
 
-#### a. open-source models: local model inference
+#### a. Open-source models: local model inference
 
-run the following command for model inference：
+Run the following command for model inference：
 
 ````
 python model_infer.py --model_path <model_path> --model_name <model_name>  --model_type <model_type> --vllm --tensor_parallel_size 4
@@ -151,19 +151,19 @@ python model_infer.py --model_path <model_path> --model_name <model_name>  --mod
 
 The inference results file is in ./output/{model_name}/{model_name}_output.json_
 
-**exmaple** 
+**Exmaple** 
 
 ```
 python model_infer.py --model_path /models/huggingface/Baichuan2-13B --model_name Baichuan2-13B  --model_type baichuan2 --vllm --tensor_parallel_size 4
 ```
 
-#### b. non-open-source models: perform model inference using the official API
+#### b. Closed-source models: model inference with the official APIs
 
-##### 1. Supported models
+##### Supported models
 
 Baichuan53B、Gpt4、Enrie
 
-##### 2. Configure the API key
+##### Configure the API key
 
 Configure the Key of the preceding model in config/eval_config.json(No need to add "Bearer ")
 
@@ -184,7 +184,7 @@ Configure the Key of the preceding model in config/eval_config.json(No need to a
 }
 ```
 
-##### 3. run command
+##### Run the corresponding command
 
 ````
 python BaseCallApi.py --model_name <model_name> --workers <num of workers>
@@ -192,15 +192,15 @@ python BaseCallApi.py --model_name <model_name> --workers <num of workers>
 # <num of workers> is the number of threads for concurrent API calls, with a default value of 1
 ````
 
-**exmaple**
+**Exmaple**
 
 ```
 python BaseCallApi.py --model_name baichuan2-53b --workers 5
 ```
 
-### 5. Call GPT4 to score and calculate the result
+### 5. Evaluation with GPT-4
 
-run the following command to call gpt4 to score and calculate the result
+Run the following command to evaluate your generations with GPT-4, and aggregate the final results
 
 ````
 python calculateScore.py --model_name_or_result_path <model_name or result_path> --gpt_eval
@@ -210,13 +210,13 @@ python calculateScore.py --model_name_or_result_path <model_name or result_path>
 
 The results file is in ./output/{model_name}/{model_name}_score.json
 
-**example**
+**Example**
 
 ```
 python calculateScore.py --model_name_or_result_path Baichuan2-13B
 ```
 
-### 6. Description of script parameters
+### Description of script parameters
 
 <table>
     <tr>
@@ -240,7 +240,7 @@ python calculateScore.py --model_name_or_result_path Baichuan2-13B
         <td>model_type</td>
         <td>false</td>
         <td>model type, used to build the prompt for inference, leave blank to use the default prompt.
-            include[baichuan2,internlm,qwen,xverse]</td>
+            include[baichuan2, internlm, qwen, xverse]</td>
     </tr>
     <tr>
         <td>vllm</td>
