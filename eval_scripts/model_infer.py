@@ -250,7 +250,7 @@ def parse_argument():
         "--model_path", type=str, help="model path"
     )
     parser.add_argument(
-        "--model_type", type=str, default="gpt4", help="model type"
+        "--model_type", type=str, default="default", help="model type"
     )
     parser.add_argument(
         "--output_dir", type=str, default=None, help="output directory"
