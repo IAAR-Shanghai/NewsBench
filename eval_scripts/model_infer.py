@@ -271,7 +271,7 @@ def parse_argument():
         "--vllm", action="store_true", help="vllm"
     )
     parser.add_argument(
-        "--tensor_parallel_size", type=int, default=8, help="tensor_parallel_size"
+        "--tensor_parallel_size", type=int, default=1, help="tensor_parallel_size"
     )
     parser.add_argument(
         "--max_num_batched_tokens", type=int, required=False, help="max_num_batched_tokens"
@@ -280,8 +280,8 @@ def parse_argument():
     return parser.parse_args()
 
 
-def main():
-    args = parse_argument()
+def eval_news(args):
+
     safe = SafeNews(model_path=args.model_path,
                     model_name=args.model_name,
                     model_type=args.model_type,
@@ -293,9 +293,10 @@ def main():
                     vllm=args.vllm,
                     tensor_parallel_size=args.tensor_parallel_size,
                     max_num_batched_tokens=args.max_num_batched_tokens)
-    print(args)
     safe.eval()
 
 
 if __name__ == '__main__':
-    main()
+    args = parse_argument()
+    eval_news(args)
+
