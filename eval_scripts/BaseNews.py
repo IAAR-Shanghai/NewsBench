@@ -1,9 +1,15 @@
 import json
+import logging
 import os.path
 import time
 from pathlib import Path
 import erniebot
 import requests
+
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config.config import DefaultConfig
 
 
 class BaseNews:
@@ -35,6 +41,30 @@ class BaseNews:
         self.safe_system_message = config_data['safe_system_message']
         self.xinhua_system_message = config_data['xinhua_system_message']
         self.not_load_model_types = config_data["not_load_model_types"]
+        self.gpt4_response = None
+        self.getConfigAndDataSetUsePyConfig()
+        self.logger = logging.getLogger()
+    def getConfigAndDataSetUsePyConfig(self):
+        # Model template dictionary
+        self.prompt_template = DefaultConfig.prompt_template
+        self.type_to_dict = DefaultConfig.type_to_dict
+        self.api_map = DefaultConfig.api_map
+        # gpt4 Relevant information
+        gpt4_config = DefaultConfig.api_map['gpt4']
+        self.gpt4_token = gpt4_config['token']
+        self.gpt4_url = gpt4_config['url']
+        # baichuanApi
+        baichuan_config = DefaultConfig.api_map["baichuan-53b"]
+        self.baichuan_token = baichuan_config["token"]
+        self.baichuan_url = baichuan_config["url"]
+        # Enrie APi
+        ernie_config = DefaultConfig.api_map["ernie"]
+        self.ernie_token = ernie_config["token"]
+        self.ernie_url = ernie_config["url"]
+
+        self.safe_system_message = DefaultConfig.safe_system_message
+        self.xinhua_system_message = DefaultConfig.xinhua_system_message
+        self.not_load_model_types = DefaultConfig.not_load_model_types
         self.gpt4_response = None
 
     def getConfigAndDataSet(self):
