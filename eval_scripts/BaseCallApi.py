@@ -1,13 +1,16 @@
 import argparse
 import json
+import logging
 import os
 import threading
 import time
 from pathlib import Path
 
+from openai import OpenAI
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor
 import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from eval_scripts.BaseNews import BaseNews
 
@@ -20,7 +23,7 @@ lock = threading.Lock()
 
 
 class BaseCallApi(BaseNews):
-    def __init__(self, model):
+    def __init__(self, model, model_type="default", api_url=None, api_token=None, served_model_name=None):
         super().__init__()
         self.xinhua_object_data = []
         self.xinhua_subject_data = []
@@ -41,14 +44,60 @@ class BaseCallApi(BaseNews):
             "xinyu2-70b": self.call_xinyu70b,
             "qwen-14b": self.call_qwen_14b_chat
         }
-        assert model in self.model_dict.keys(), f"模型{model}的API不存在"
+
+        self.model_type = model_type
+        self.api_url = api_url
+        self.api_token = api_token
+        # assert model in self.model_dict.keys(), f"模型{model}的API不存在"
         self.model = model
+        if served_model_name is not None:
+            self.served_model_name = served_model_name
+        else:
+            self.served_model_name = model
+        self.load_model_api_context()
         # 获取当前脚本所在的目录
         current_path = Path(__file__).resolve().parent
         # 获取当前脚本所在的项目根目录
         self.root_path = current_path.parent
         self.out_dir = os.path.join(self.root_path, f"output/{self.model}")
         self.data_path = os.path.join(self.out_dir, f"{self.model}_data.json")
+        self.client = OpenAI(base_url=self.api_url, api_key=self.api_token)
+
+    def load_model_api_context(self):
+        if self.model in self.model_dict.keys():
+            return
+        if self.api_url is not None and self.api_token is not None:
+            self.model_dict[self.model] = self.call_model_api_by_openai
+            return
+        if self.model in self.api_map.keys():
+            api_value = self.api_map[self.model]
+            self.api_url = api_value['url']
+            self.api_token = api_value['token']
+            self.model_dict[self.model] = self.call_model_api_by_openai
+            return
+        raise AssertionError(f"The URL and token of the model:{self.model} are missing")
+
+    def call_model_api_by_openai(self, query):
+        retry_times = 2
+        while True:
+            try:
+                chat_completion = self.client.chat.completions.create(
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": query,
+                        }
+                    ],
+                    model=self.served_model_name,
+                )
+                # print(chat_completion)
+                # print(chat_completion.choices[0].message.content)
+                return chat_completion.choices[0].message.content
+            except Exception as e:
+                self.logger.warning(e)
+                retry_times -= 1
+                if retry_times < 0:
+                    return None
 
     def getAllResult(self):
         for key, value in self.all_data.items():
@@ -139,15 +188,33 @@ class BaseCallApi(BaseNews):
                 file.write(json.dumps(data, ensure_ascii=False) + "\n")
 
 
-if __name__ == '__main__':
+def parse_argument():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--model_name", type=str, required=True, help="model name", default="ernie"
+        "--model_name", type=str, required=True, help="model name"
     )
     parser.add_argument(
         "--workers", type=int, help="workers", default=1
     )
-    args = parser.parse_args()
-    model = BaseCallApi(args.model_name)
+    parser.add_argument(
+        "--url", type=str, required=False, help="model api url"
+    )
+    parser.add_argument(
+        "--token", type=str, required=False, help="model api token"
+    )
+    # served-model-name
+    parser.add_argument(
+        "--served_model_name", type=str, required=False, help="model api name"
+    )
+    return parser.parse_args()
+
+
+def call_api_model(args):
+    model = BaseCallApi(args.model_name, api_url=args.url, api_token=args.token, served_model_name=args.served_model_name)
     model.getAllResult()
     model.call(model.data_path, workers=args.workers)
+
+
+if __name__ == '__main__':
+    args = parse_argument()
+    call_api_model(args)
