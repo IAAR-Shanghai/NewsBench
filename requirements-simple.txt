@@ -1,0 +1,4 @@
+erniebot
+Requests
+tqdm
+openai
