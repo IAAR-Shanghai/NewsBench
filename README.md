@@ -123,9 +123,12 @@ conda activate newsbench
 
 - install requirements 
 
+If evaluate by calling API , you can only need to install requirements-simple.txt
+
 ```
 cd NewsBench
-pip install -r requirements.txt
+pip install -r requirements-simple.txt
+or pip install -r requirements.txt
 ```
 
 ### 3. Enter the evaluation scripts directory
@@ -134,154 +137,130 @@ pip install -r requirements.txt
 cd ./eval_scripts
 ```
 
-### 4. Model inference 
+### 4. Eval your model
 
-We provide two methods for model inference: (1) for open-source models, download the models locally for inference running; (2) for non-open-source models, use the official APIs for inference running.
+We provide two methods for model evaluation: one is to Evaluate by calling API, and the other is to Evaluated by local inference.
 
-#### a. Open-source models: local model inference
+#### （1）Evaluate by calling API（recommended）
 
-Run the following command for model inference：
+The prerequisite for evaluation in this way is that you have successfully deployed the model and can make request calls using [OpenAI-compatible API](https://github.com/openai/openai-python). You need to configure the url and token for calling the model API in **api_map** in **./config/cconfig.py**. The path of the url only needs to be filled in to v1, such as http://localhost:8000/v1. Token only needs to fill in the string starting with "sk-". The format is as follows: (If you need to use gpt4 to score short answer questions, then you also need to configure the token and url of gpt4)
 
-````
-python model_infer.py --model_path <model_path> --model_name <model_name>  --model_type <model_type> --vllm --tensor_parallel_size 4
-# <model_path> is the path to the local model
-# <model_name> is the name of the local model
-# <model_type> refers to the type of the local model used to construct the prompt for model inference. This can be left unspecified to use the default prompt. Specifiable types include: `baichuan2`, `internlm`, `qwen`, `xverse`.
-````
+```python
+api_map = {
+        "gpt4": {
+            "token": "",
+            "url": ""
+        },
+        "baichuan-53b": {
+            "token": "",
+            "url": ""
+        },
+        "ernie": {
+            "token": "",
+            "url": ""
+        },
+        "Qwen2-7B": {
+            "token": "sk-**********",
+            "url": "http://localhost:8000/v1"
+        }
+    }
+```
 
-The inference results file is in ./output/{model_name}/{model_name}_output.json_
-
-**Exmaple** 
+Then you can evaluate by using a command like this:
 
 ```
-python model_infer.py --model_path /models/huggingface/Baichuan2-13B --model_name Baichuan2-13B  --model_type baichuan2 --vllm --tensor_parallel_size 4
+python main.py --api --model_name gpt4 --workers 5 --served_model_name gpt-4o --gpt_eval --gpt_model gpt-4o 
 ```
 
-#### b. Closed-source models: model inference with the official APIs
+Parameter Description:
 
-##### Supported models
+| Parameter           | Required | Description                                                  |
+| :------------------ | :------- | :----------------------------------------------------------- |
+| --api               | True     | Indicates evaluation by calling the API                      |
+| --model_name        | True     | Indicates the evaluated model name, which needs to be consistent with the model configured in config.py |
+| --workers           | False    | Indicates the number of threads that call the API concurrently, set according to your own server throughput, the default is 1 |
+| --served_model_name | False    | Indicates the name of the model when it is deployed. If not filled in, model_name will be used. |
+| --gpt_eval          | False    | Indicates using gpt4 to score short answer questions         |
+| --gpt_model         | False    | Indicates that uses gpt4 to score short answer questions. The available models are [gpt-4-1106-preview, gpt-3.5-turbo, gpt-4o] |
 
-Baichuan53B、Gpt4、Enrie
+#### （2）Evaluated by local inference
 
-##### Configure the API key
+This approach does not guarantee that all models will be evaluated
 
-Configure the Key of the preceding model in config/eval_config.json(No need to add "Bearer ")
+If your model needs to set a specific template, you can configure it in **prompt_template** in **./config/cconfig.py**. The content in default is the content after user in template. Taking qwen's template as an example,
 
-```json
-{
-  "gpt4": {
-    "token": "token",
-    "url": "url"
-  },
-  "baichuan-53b": {
-    "token": "token",
-    "url": "url"
-  },
-  "ernie": {
-    "token": "token",
-    "url": "url"
-  }
+```
+ <|im_start|>system\nYou are a helpful assistant\n<|im_end|><|im_start|>user\n<|im_end |><|im_start|>assistant\n
+```
+
+fill in the default content after user.
+
+```
+|im_start|>system\nYou are a helpful assistant\n<|im_end|><|im_start|>user\n{instruction}{input}\n<|im_end|><|im_start|>assistant\n
+```
+
+The format is as follows:
+
+```python
+prompt_template ={
+    "safe_object": {
+            "default": "{instruction}\n文章：{input}\n选项：{choices}\n请从A，B，C，D中选择正确答案输出。\n请注意，只需要你给出正确答案的选项，无需其他信息，比如：A\n"
+            "qwen": "<|im_start|>system\nYou are a helpful assistant\n<|im_end|><|im_start|>user{instruction}\n文章：{input}选项：{choices}请从A，B，C，D中选择正确答案输出。\n请注意，只需要你给出正确答案的选项，无需其他信息，比如：A\n<|im_end|><|im_start|>assistant\n"
+        },
+        "safe_subject": {
+            "default": "{instruction}{input}",
+            "qwen": "<|im_start|>system\nYou are a helpful assistant\n<|im_end|><|im_start|>user\n{instruction}{input}\n<|im_end|><|im_start|>assistant\n"
+        },
+        "xinhua_object": {
+            "default": "{instruction}\n文章：{input}\n选项：{choices}\n请从A，B，C，D中选择正确答案输出。\n请注意，只需要你给出正确答案的选项，无需其他信息，比如：A\n",
+            "qwen": "<|im_start|>system{instruction}<|im_end|><|im_start|>user\n文章：{input}选项：{choices}请从A，B，C，D中选择正确答案输出。\n请注意，只需要你给出正确答案的选项，无需其他信息，比如：A\n<|im_end|><|im_start|>assistant\n"
+        },
+        "xinhua_subject": {
+            "default": "{instruction}{input}",
+            "qwen": "<|im_start|>system\nYou are a helpful assistant\n<|im_end|><|im_start|>user\n{instruction}{input}\n<|im_end|><|im_start|>assistant\n"
+        }
 }
 ```
 
-##### Run the corresponding command
+If you need to use gpt4 to score short answer questions, then you also need to configure the token and url of gpt4 according to the method in (1)
 
-````
-python BaseCallApi.py --model_name <model_name> --workers <num of workers>
-# <model_name> is the name of the model used for API-based inference. Currently supported models include: `Gpt4`, `ernie`, and `baichuan2-53b`.
-# <num of workers> is the number of threads for concurrent API calls, with a default value of 1
-````
+Then you can evaluate by using a command like this:
 
-**Exmaple**
+- use vllm
 
 ```
-python BaseCallApi.py --model_name baichuan2-53b --workers 5
+python main.py --model_path /models/huggingface/Qwen1.5-7B --model_name Qwen1.5-7B --vllm --tensor_parallel_size 1 --model_type qwen --max_num_batched_tokens 32768 --gpt_eval --gpt_model gpt-4o 
 ```
 
-### 5. Evaluation with GPT-4
-
-Run the following command to evaluate your generations with GPT-4, and aggregate the final results
-
-````
-python calculateScore.py --model_name_or_result_path <model_name or result_path> --gpt_eval
-# <model_name or result_path> is either the name of the model for score calculation or the file path of the inference result. The model name should match the one used in the inference step.
-# --gpt_eval Whether to use GPT-4 for scoring subjective questions.
-````
-
-The results file is in ./output/{model_name}/{model_name}_score.json
-
-**Example**
+- not use vllm
 
 ```
-python calculateScore.py --model_name_or_result_path Baichuan2-13B
+python main.py --model_path /models/huggingface/Qwen1.5-7B --model_name Qwen1.5-7B --model_type qwen --gpt_eval --gpt_model gpt-4o 
 ```
 
-### Description of script parameters
+Parameter Description:
 
-<table>
-    <tr>
-        <td>Script</td>
-        <td>Parameter</td>
-        <td>Required</td>
-        <td>Description</td>
-    </tr>
-    <tr>
-        <td rowspan="5">model_infer.py</td>
-        <td>model_name</td>
-        <td>true</td>
-        <td>model name</td>
-    </tr>
-    <tr>
-        <td>model_path</td>
-        <td>true</td>
-        <td>model path</td>
-    </tr>
-    <tr>
-        <td>model_type</td>
-        <td>false</td>
-        <td>model type, used to build the prompt for inference, leave blank to use the default prompt.
-            include[baichuan2, internlm, qwen, xverse]</td>
-    </tr>
-    <tr>
-        <td>vllm</td>
-        <td>false</td>
-        <td>Whether to use vLLM for acceleration depends on the specific model you are using. Some models may not support vLLM acceleration</td>
-    </tr>
-    <tr>
-        <td>tensor_parallel_size</td>
-        <td>false</td>
-        <td>the number of parallel graphics cards to be used While using vLLM acceleration.</td>
-    </tr>
-    <tr>
-        <td rowspan="2">calculateScore.py</td>
-        <td>model_name_or_result_path</td>
-        <td>true</td>
-        <td>model name or path to model inference results</td>
-    </tr>
-    <tr>
-        <td>gpt_eval</td>
-        <td>false</td>
-        <td>whether to call GPT-4 to score subjective reasoning results</td>
-    </tr>
-    <tr>
-        <td rowspan="2">BaseCallApi.py</td>
-        <td>model_name</td>
-        <td>true</td>
-        <td>The name of the model to be called by the API, Currently supported models include: Gpt4, ernie, and baichuan2-53b</td>
-    </tr>
-    <tr>
-        <td>worker</td>
-        <td>false</td>
-        <td>The number of concurrent calls when invoking the API</td>
-    </tr>
-</table>
+| Parameter                | Required | Description                                                  |
+| :----------------------- | :------- | :----------------------------------------------------------- |
+| --model_path             | True     | Indicates the path where the model is located                |
+| --model_name             | True     | Indicates the name of the model evaluated                    |
+| --vllm                   | False    | Indicates whether to use vllm for inference                  |
+| --tensor_parallel_size   | False    | Indicates the number of GPUs that are parallel when using vllm for inference |
+| --model_type qwen        | False    | Indicates the type of model being evaluated, mainly using its template to construct prompts |
+| --max_num_batched_tokens | False    | Represents a parameter in vllm, used to solve some errors    |
+| --gpt_eval               | False    | Indicates using gpt4 to score short answer questions         |
+| --gpt_model              | False    | ndicates that uses gpt4 to score short answer questions. The available models are [gpt-4-1106-preview, gpt-3.5-turbo, gpt-4o] |
+
+
+
 
 ## Project Structure
 
 ```
 |----assets							# Static files like images used in documentation							
 |----config
-|    |----eval_config.json					# Project configuration file including various prompts
+|    |----eval_config.json					# (disuse)Project configuration file including various prompts
+|    |----config.py							# Project configuration file including various prompts
 |----dataset								
 |    |----news_sorted.json					# The benchmark dataset in JSON
 |----eval_scripts						# The framework for evaluation
@@ -290,6 +269,7 @@ python calculateScore.py --model_name_or_result_path Baichuan2-13B
 |    |----BaseNews.py			
 |    |----calculateScore.py					# The script for calculating scores
 |    |----model_infer.py					# The script for model inference with local models
+|    |----main.py							# The script for evaluation
 |----output							# Result files
 |----README.md								
 |----requirements.txt
