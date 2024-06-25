@@ -20,12 +20,13 @@ lock = threading.Lock()
 
 
 class CalScore(BaseNews):
-    def __init__(self, result_dir):
+    def __init__(self, result_dir, gpt_model="gpt-4o"):
         super().__init__()
         assert os.path.exists(result_dir), "Result file does not exist."
         with open(result_dir, "r", encoding="utf-8") as f:
             self.result_data = json.load(f)
         self.result_dir = result_dir
+        self.gpt_model = gpt_model
         self.result = {
             XINHUA_OBJECT: {},
             XINHUA_SUBJECT: {},
@@ -282,7 +283,7 @@ class CalScore(BaseNews):
                            f"model {self.file_name} call gpt4 for " + XINHUA_SUBJECT)
 
     def getGpt4Result(self, data, success_path, fail_path):
-        answer = self.callGpt4(data['gpt4_prompt'])
+        answer = self.callGpt4(data['gpt4_prompt'], gpt_model=self.gpt_model)
         if answer is None:
             data['answer'] = "failed"
             with open(fail_path, 'a', encoding="utf-8") as file:
@@ -303,7 +304,7 @@ class CalScore(BaseNews):
         for i in json_data:
             if i['gpt4_prompt'] in data:
                 continue
-            i['model'] = "gpt-4-0613"
+            i['model'] = self.gpt_model
             res.append(i)
         # threadPool = ThreadPoolExecutor(max_workers=workers, thread_name_prefix="gpt_")
         with tqdm(total=len(res)) as pbar:
@@ -380,14 +381,17 @@ def parse_argument():
         "--model_name_or_result_path", type=str, required=True, help="model name"
     )
     parser.add_argument(
+        "--gpt_model", type=str, default="gpt-4o", required=False,
+        help="gpt model,choices[gpt-4-1106-preview,gpt-3.5-turbo,gpt-4o]"
+    )
+    parser.add_argument(
         "--gpt_eval", action="store_true", help="call gpt for eval"
     )
+
     return parser.parse_args()
 
 
-def main():
-    args = parse_argument()
-    print(args)
+def cal_score(args):
     if not os.path.exists(args.model_name_or_result_path):
         model_name = args.model_name_or_result_path
         current_path = Path(__file__).resolve().parent
@@ -409,4 +413,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    args = parse_argument()
+    cal_score(args)
